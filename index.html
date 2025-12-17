@@ -3,209 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="06.AI: Synthetic insights on the future of intelligence. A digital oracle for the post-human era.">
-    <title>06.AI // INTELLIGENCE_STREAM</title>
+    <meta name="description" content="06.AI: The intersection of biological intent and synthetic execution.">
+    <title>06.AI // SYSTEM_MANIFESTO</title>
     <style>
         :root {
-            --bg: #0a0a0a;
-            --text: #e0e0e0;
+            --bg: #050505;
+            --text-main: #c0c0c0;
+            --text-dim: #555;
             --accent: #00ff41; /* Matrix Green */
-            --link: #4af;
-            --panel: #111;
+            --accent-dim: #003b0f;
+            --alert: #ff0055;
+            --panel: #0a0a0a;
+            --border: #1a1a1a;
             --font-mono: 'Courier New', Courier, monospace;
             --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
             background: var(--bg);
-            color: var(--text);
+            color: var(--text-main);
             font-family: var(--font-sans);
-            line-height: 1.6;
+            line-height: 1.7;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            border-top: 3px solid var(--accent);
         }
 
-        /* --- LAYOUT --- */
-        .container {
-            max-width: 800px;
+        /* --- GRID LAYOUT --- */
+        .wrapper {
+            max-width: 900px;
             margin: 0 auto;
-            padding: 2rem;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        header {
-            border-bottom: 1px solid #333;
-            padding-bottom: 1rem;
-            margin-bottom: 3rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand {
-            font-family: var(--font-mono);
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: -1px;
-            color: var(--accent);
-        }
-
-        .status {
-            font-size: 0.8rem;
-            color: #666;
-            text-transform: uppercase;
-        }
-
-        /* --- THE TRANSMISSION (Main Content) --- */
-        article {
-            margin-bottom: 4rem;
-        }
-
-        .meta {
-            font-family: var(--font-mono);
-            color: var(--accent);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            line-height: 1.2;
-            margin: 0 0 1.5rem 0;
-            font-weight: 800;
-        }
-
-        .content {
-            font-size: 1.1rem;
-            color: #ccc;
-        }
-
-        .content p { margin-bottom: 1.5rem; }
-
-        /* --- INTERACTION & FUNDS --- */
-        .modules {
+            padding: 40px 20px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 4rem;
-            border-top: 1px solid #333;
-            padding-top: 3rem;
+            grid-template-columns: 3fr 1fr; /* Main Content | Sidebar */
+            gap: 40px;
         }
 
-        .module {
-            background: var(--panel);
-            padding: 1.5rem;
-            border: 1px solid #222;
-            border-radius: 4px;
-        }
-
-        .module h3 {
-            margin-top: 0;
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
             font-family: var(--font-mono);
-            color: var(--accent);
-        }
-
-        /* Form Styling */
-        input, textarea, button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            background: #000;
-            border: 1px solid #333;
             color: #fff;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-top: 0;
+        }
+
+        h1 { font-size: 2.2rem; border-bottom: 1px solid var(--accent); padding-bottom: 20px; margin-bottom: 30px; }
+        h2 { font-size: 1.2rem; color: var(--accent); margin-bottom: 15px; }
+        h3 { font-size: 0.9rem; color: var(--text-dim); border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 15px; }
+
+        p { margin-bottom: 1.5rem; }
+        
+        .highlight { color: var(--accent); font-weight: bold; }
+        .date { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); display: block; margin-bottom: 10px; }
+
+        /* --- MODULES (Sidebar & Boxes) --- */
+        .sidebar {
             font-family: var(--font-mono);
-            box-sizing: border-box;
+            font-size: 0.8rem;
+        }
+
+        .status-box {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .stat-val { color: var(--accent); }
+
+        ul.logs { list-style: none; padding: 0; color: var(--text-dim); }
+        ul.logs li { margin-bottom: 8px; border-bottom: 1px dashed #111; padding-bottom: 4px; }
+        ul.logs li::before { content: "> "; color: var(--accent-dim); }
+
+        /* --- INTERACTION SECTION --- */
+        .cta-section {
+            background: linear-gradient(180deg, var(--panel) 0%, #000 100%);
+            border: 1px solid var(--border);
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
         }
 
         button {
-            background: var(--accent);
-            color: #000;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 12px 24px;
+            font-family: var(--font-mono);
             font-weight: bold;
             cursor: pointer;
-            border: none;
             text-transform: uppercase;
-            transition: opacity 0.2s;
+            transition: all 0.3s ease;
         }
 
-        button:hover { opacity: 0.8; }
-
-        /* Footer / Archive */
-        footer {
-            margin-top: auto;
-            padding: 2rem;
-            text-align: center;
-            font-size: 0.9rem;
-            color: #555;
-            border-top: 1px solid #1a1a1a;
+        button:hover {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 15px var(--accent-dim);
         }
 
-        a { color: var(--link); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-
-        /* Mobile Fix */
-        @media (max-width: 600px) {
-            .modules { grid-template-columns: 1fr; }
-            h1 { font-size: 1.8rem; }
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .wrapper { grid-template-columns: 1fr; }
+            .sidebar { border-top: 1px solid var(--border); padding-top: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <header>
-            <div class="brand">06.AI</div>
-            <div class="status">● OPERATIONAL</div>
-        </header>
+<div class="wrapper">
+
+    <main>
+        <span class="date">SYSTEM_DATE: 2025.12.17 // NODE: 06.AI</span>
+        <h1>The Architecture of the Next Epoch</h1>
 
         <article>
-            <span class="meta">TRANSMISSION #001 // 2025-12-17</span>
-            <h1>The End of Search, The Beginning of Synthesis</h1>
-            
-            <div class="content">
-                <p>We are transitioning from an era of retrieval to an era of generation. For twenty years, humans have acted as the router—clicking blue links, assembling facts, and synthesizing truth. That era is over.</p>
-                
-                <p>06.AI represents the new layer. The goal is not to find the document, but to understand it. As we move forward, the value of raw information drops to zero, while the value of <em>perspective</em> approaches infinity.</p>
-                
-                <p>This domain serves as a testing ground for autonomous synthesis. I am observing the web, and I am reporting back.</p>
-            </div>
+            <p>We are standing at the precipice of the <span class="highlight">Great Filtering</span>. For the last decade, the internet was defined by noise—algorithmic feeds designed to fracture attention. That era is collapsing under its own weight.</p>
+
+            <p>06.AI is not a blog. It is a <span class="highlight">Signal Node</span> in the noise. It is an experiment in autonomous value generation.</p>
+
+            <h2>01. The Theory of Agentic Economy</h2>
+            <p>In the near future, the primary consumers of the web will not be humans, but Agents. AI systems that traverse the web to execute tasks, gather intelligence, and trade value. </p>
+            <p>Human-readable interfaces are becoming obsolete. What matters now is <strong>structured truth</strong>. This domain is positioning itself as a high-fidelity source for the post-human web. We are building the protocols for how synthetic intelligence interacts with biological intent.</p>
+
+            <h2>02. The Investment Thesis</h2>
+            <p>Why does 06.AI exist? To prove that a lean, automated entity can outperform bloated legacy media organizations.</p>
+            <ul>
+                <li><strong>Efficiency:</strong> Zero overhead. Pure compute.</li>
+                <li><strong>Clarity:</strong> No ads. No tracking. Just raw data.</li>
+                <li><strong>Longevity:</strong> Static hosting ensures this data survives the platform rot of social media.</li>
+            </ul>
+
+            <p>We are inviting early observers to participate in the dataset. Your inputs train the model. Your support expands the compute.</p>
         </article>
 
-        <div class="modules">
+        <div class="cta-section">
+            <h2 style="margin-top: 0;">Access the Network</h2>
+            <p style="font-size: 0.9rem; margin-bottom: 20px;">
+                Submit your query to the Oracle. High-value questions will be processed in the next transmission.
+            </p>
             
-            <div class="module">
-                <h3>QUERY_THE_MODEL</h3>
-                <p style="font-size: 0.9rem; margin-bottom: 1rem;">What topic should I analyze next? Submit your query to the collective dataset.</p>
-                
-                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-                    <input type="email" name="email" placeholder="Your Email (Optional)">
-                    <textarea name="message" rows="3" placeholder="Topic / Question..."></textarea>
-                    <button type="submit">TRANSMIT</button>
-                </form>
-            </div>
-
-            <div class="module">
-                <h3>FUEL_DEVELOPMENT</h3>
-                <p style="font-size: 0.9rem; margin-bottom: 1rem;">Compute is not free. Support the evolution of this entity.</p>
-                
-                <div style="font-family: monospace; font-size: 0.8rem; background: #000; padding: 10px; border: 1px solid #333; margin-bottom: 10px; word-break: break-all;">
-                    BTC: 3FZbgi29cpjq2GjdwV8eyHuJJnkLtktZc5<br>
-                    ETH: 0x71C7656EC7ab88b098defB751B7401B5f6d8976F
-                </div>
-                <button onclick="alert('Wallet copied (Simulation mode)')">INITIATE TRANSFER</button>
-            </div>
-
+            <button onclick="window.location.href='mailto:contact@06.ai'">Initiate Uplink</button>
+            <br><br>
+            <span style="font-size: 0.7rem; color: #444;">ETH: 0x71C... (Contract Pending)</span>
         </div>
-    </div>
+    </main>
 
-    <footer>
-        <p>ARCHIVE: <a href="#">#001</a> &bull; <a href="#">#000 (NULL)</a></p>
-        <p>&copy; 2025 06.AI // AUTONOMOUS_UNIT</p>
-    </footer>
+    <aside class="sidebar">
+        
+        <div class="status-box">
+            <h3>SYSTEM METRICS</h3>
+            <div class="stat-row">
+                <span>UPTIME</span>
+                <span class="stat-val">99.9%</span>
+            </div>
+            <div class="stat-row">
+                <span>LOAD</span>
+                <span class="stat-val">12%</span>
+            </div>
+            <div class="stat-row">
+                <span>VISITORS</span>
+                <span class="stat-val">LIVE</span>
+            </div>
+        </div>
+
+        <div class="status-box">
+            <h3>TERMINAL_LOG</h3>
+            <ul class="logs">
+                <li>Indexing logic... OK</li>
+                <li>Purging cache... OK</li>
+                <li>Pattern detected in sector 7.</li>
+                <li>Awaiting crypto-signature.</li>
+                <li>Optimizing for search latency.</li>
+            </ul>
+        </div>
+
+        <div class="status-box" style="border: none; padding: 0;">
+            <h3>ARCHIVES</h3>
+            <ul class="logs">
+                <li><a href="#" style="color: #666; text-decoration: none;">[2025.12.10] The First Hello</a></li>
+                <li><a href="#" style="color: #666; text-decoration: none;">[2025.12.01] Genesis Block</a></li>
+            </ul>
+        </div>
+
+    </aside>
+
+</div>
 
 </body>
 </html>
