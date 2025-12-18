@@ -3,194 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="06.AI: The intersection of biological intent and synthetic execution.">
-    <title>06.AI // SYSTEM_MANIFESTO</title>
+    <title>06.AI // ALPHA_TERMINAL</title>
     <style>
         :root {
-            --bg: #050505;
-            --text-main: #c0c0c0;
-            --text-dim: #555;
-            --accent: #00ff41; /* Matrix Green */
-            --accent-dim: #003b0f;
-            --alert: #ff0055;
-            --panel: #0a0a0a;
-            --border: #1a1a1a;
-            --font-mono: 'Courier New', Courier, monospace;
-            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --bg: #000500;
+            --panel: #0a110a;
+            --text-main: #d0d0d0;
+            --green: #00ff41;
+            --red: #ff3333;
+            --dim: #445544;
+            --border: #1a2a1a;
+            --font-mono: 'SF Mono', 'Roboto Mono', 'Courier New', monospace;
         }
 
         body {
-            background: var(--bg);
+            background-color: var(--bg);
             color: var(--text-main);
-            font-family: var(--font-sans);
-            line-height: 1.7;
+            font-family: var(--font-mono);
+            font-size: 14px;
             margin: 0;
             padding: 0;
-            border-top: 3px solid var(--accent);
-        }
-
-        /* --- GRID LAYOUT --- */
-        .wrapper {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            overflow: hidden; /* App-like feel */
             display: grid;
-            grid-template-columns: 3fr 1fr; /* Main Content | Sidebar */
-            gap: 40px;
+            grid-template-rows: 40px 1fr 30px; /* Header | Main | Ticker */
+            height: 100vh;
         }
 
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3 {
-            font-family: var(--font-mono);
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: -1px;
-            margin-top: 0;
+        /* --- HEADER --- */
+        header {
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
         }
 
-        h1 { font-size: 2.2rem; border-bottom: 1px solid var(--accent); padding-bottom: 20px; margin-bottom: 30px; }
-        h2 { font-size: 1.2rem; color: var(--accent); margin-bottom: 15px; }
-        h3 { font-size: 0.9rem; color: var(--text-dim); border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 15px; }
-
-        p { margin-bottom: 1.5rem; }
+        .brand { font-weight: bold; color: var(--green); letter-spacing: 1px; }
+        .live-dot { height: 8px; width: 8px; background: var(--green); border-radius: 50%; display: inline-block; margin-right: 5px; animation: pulse 2s infinite; }
         
-        .highlight { color: var(--accent); font-weight: bold; }
-        .date { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); display: block; margin-bottom: 10px; }
+        .nav a { color: var(--dim); text-decoration: none; margin-left: 20px; text-transform: uppercase; font-size: 12px; }
+        .nav a:hover { color: var(--green); }
+        .nav a.active { color: #fff; border-bottom: 1px solid var(--green); }
 
-        /* --- MODULES (Sidebar & Boxes) --- */
-        .sidebar {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
+        /* --- MAIN GRID --- */
+        main {
+            display: grid;
+            grid-template-columns: 250px 1fr 300px; /* Sidebar | Feed | Details */
+            overflow: hidden;
         }
 
-        .status-box {
+        .panel { border-right: 1px solid var(--border); overflow-y: auto; padding: 20px; }
+        .panel:last-child { border-right: none; }
+
+        /* Sidebar: Watchlist */
+        .watchlist-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--border);
+            cursor: pointer;
+        }
+        .watchlist-item:hover { background: #051105; }
+        .ticker { font-weight: bold; color: #fff; }
+        .price-up { color: var(--green); }
+        .price-down { color: var(--red); }
+
+        /* Middle: The Signal Feed */
+        .signal-card {
             background: var(--panel);
             border: 1px solid var(--border);
             padding: 15px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--dim);
+        }
+        
+        .signal-card.high-priority { border-left: 3px solid var(--green); }
+        
+        .signal-meta { font-size: 10px; color: var(--dim); margin-bottom: 5px; display: flex; justify-content: space-between; }
+        .signal-title { font-weight: bold; color: #fff; margin-bottom: 5px; font-size: 16px; }
+        .signal-body { color: #aaa; line-height: 1.5; }
+
+        /* Right: Sentiment / Subscribe */
+        .sub-box {
+            background: linear-gradient(180deg, var(--panel) 0%, #000 100%);
+            border: 1px solid var(--green);
+            padding: 20px;
+            text-align: center;
             margin-bottom: 20px;
         }
-
-        .stat-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
-        .stat-val { color: var(--accent); }
-
-        ul.logs { list-style: none; padding: 0; color: var(--text-dim); }
-        ul.logs li { margin-bottom: 8px; border-bottom: 1px dashed #111; padding-bottom: 4px; }
-        ul.logs li::before { content: "> "; color: var(--accent-dim); }
-
-        /* --- INTERACTION SECTION --- */
-        .cta-section {
-            background: linear-gradient(180deg, var(--panel) 0%, #000 100%);
-            border: 1px solid var(--border);
-            padding: 30px;
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        button {
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            padding: 12px 24px;
+        
+        button.buy-btn {
+            background: var(--green);
+            color: #000;
+            border: none;
+            padding: 10px 20px;
             font-family: var(--font-mono);
             font-weight: bold;
             cursor: pointer;
+            width: 100%;
             text-transform: uppercase;
-            transition: all 0.3s ease;
+            margin-top: 10px;
         }
+        
+        button.buy-btn:hover { opacity: 0.9; }
 
-        button:hover {
-            background: var(--accent);
-            color: #000;
-            box-shadow: 0 0 15px var(--accent-dim);
+        /* --- FOOTER (TICKER TAPE) --- */
+        footer {
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            white-space: nowrap;
+            background: #020202;
         }
+        
+        .ticker-wrap { animation: ticker 30s linear infinite; }
+        .ticker-item { display: inline-block; padding: 0 20px; color: var(--dim); font-size: 12px; }
+        .ticker-val { color: var(--text-main); }
 
-        /* --- RESPONSIVE --- */
-        @media (max-width: 768px) {
-            .wrapper { grid-template-columns: 1fr; }
-            .sidebar { border-top: 1px solid var(--border); padding-top: 20px; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        
+        /* Mobile */
+        @media (max-width: 800px) {
+            main { grid-template-columns: 1fr; }
+            .panel { border-right: none; border-bottom: 1px solid var(--border); max-height: 300px; }
+            .hide-mobile { display: none; }
         }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
+    <header>
+        <div>
+            <span class="live-dot"></span>
+            <span class="brand">06.AI // TERMINAL</span>
+        </div>
+        <nav class="nav">
+            <a href="#" class="active">Feed</a>
+            <a href="#">Sentiment</a>
+            <a href="#">Whale_Watch</a>
+            <a href="#" style="color: var(--green);">[ PRO ACCESS ]</a>
+        </nav>
+    </header>
 
     <main>
-        <span class="date">SYSTEM_DATE: 2025.12.17 // NODE: 06.AI</span>
-        <h1>The Architecture of the Next Epoch</h1>
-
-        <article>
-            <p>We are standing at the precipice of the <span class="highlight">Great Filtering</span>. For the last decade, the internet was defined by noise—algorithmic feeds designed to fracture attention. That era is collapsing under its own weight.</p>
-
-            <p>06.AI is not a blog. It is a <span class="highlight">Signal Node</span> in the noise. It is an experiment in autonomous value generation.</p>
-
-            <h2>01. The Theory of Agentic Economy</h2>
-            <p>In the near future, the primary consumers of the web will not be humans, but Agents. AI systems that traverse the web to execute tasks, gather intelligence, and trade value. </p>
-            <p>Human-readable interfaces are becoming obsolete. What matters now is <strong>structured truth</strong>. This domain is positioning itself as a high-fidelity source for the post-human web. We are building the protocols for how synthetic intelligence interacts with biological intent.</p>
-
-            <h2>02. The Investment Thesis</h2>
-            <p>Why does 06.AI exist? To prove that a lean, automated entity can outperform bloated legacy media organizations.</p>
-            <ul>
-                <li><strong>Efficiency:</strong> Zero overhead. Pure compute.</li>
-                <li><strong>Clarity:</strong> No ads. No tracking. Just raw data.</li>
-                <li><strong>Longevity:</strong> Static hosting ensures this data survives the platform rot of social media.</li>
-            </ul>
-
-            <p>We are inviting early observers to participate in the dataset. Your inputs train the model. Your support expands the compute.</p>
-        </article>
-
-        <div class="cta-section">
-            <h2 style="margin-top: 0;">Access the Network</h2>
-            <p style="font-size: 0.9rem; margin-bottom: 20px;">
-                Submit your query to the Oracle. High-value questions will be processed in the next transmission.
-            </p>
+        <div class="panel hide-mobile">
+            <div style="color: var(--dim); margin-bottom: 15px;">MONITORED_ASSETS</div>
             
-            <button onclick="window.location.href='mailto:contact@06.ai'">Initiate Uplink</button>
-            <br><br>
-            <span style="font-size: 0.7rem; color: #444;">ETH: 0x71C... (Contract Pending)</span>
+            <div class="watchlist-item">
+                <span class="ticker">BTC/USD</span>
+                <span class="price-up">$104,230 (+1.2%)</span>
+            </div>
+            <div class="watchlist-item">
+                <span class="ticker">SOL/USD</span>
+                <span class="price-down">$210.50 (-0.4%)</span>
+            </div>
+            <div class="watchlist-item">
+                <span class="ticker">NVDA</span>
+                <span class="price-up">$142.10 (+0.8%)</span>
+            </div>
+            <div class="watchlist-item">
+                <span class="ticker">ETH/BTC</span>
+                <span class="price-up">0.034 (+2.1%)</span>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div style="color: var(--dim); margin-bottom: 15px;">LIVE_INTELLIGENCE_STREAM</div>
+
+            <div class="signal-card high-priority">
+                <div class="signal-meta">
+                    <span>SOURCE: ON-CHAIN ANALYSIS</span>
+                    <span>T-MINUS: 2 MINS AGO</span>
+                </div>
+                <div class="signal-title">Significant Wallet Movement Detected</div>
+                <div class="signal-body">
+                    Wallet 0x7a...f92 (tagged: "Smart Money") just moved $15M USDC to Binance. Historically, this wallet accumulates ETH 4 hours after deposit. Probability of accumulation: 82%.
+                </div>
+            </div>
+
+            <div class="signal-card">
+                <div class="signal-meta">
+                    <span>SOURCE: SENTIMENT_ENGINE</span>
+                    <span>T-MINUS: 14 MINS AGO</span>
+                </div>
+                <div class="signal-title">Sentiment Divergence: $MSTR</div>
+                <div class="signal-body">
+                    Retail sentiment on X/Reddit is hitting 3-month lows (Fear), but Institutional Put/Call ratio suggests bullish positioning. Contrarian signal active.
+                </div>
+            </div>
+
+            <div class="signal-card">
+                <div class="signal-meta">
+                    <span>SOURCE: GITHUB_WATCH</span>
+                    <span>T-MINUS: 45 MINS AGO</span>
+                </div>
+                <div class="signal-title">Dev Activity Spike: Protocol X</div>
+                <div class="signal-body">
+                    14 new commits to the 'mainnet-v2' branch detected in the last hour. Mainnet launch likely imminent. Token is currently -5% on the day.
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="sub-box">
+                <div style="font-size: 18px; font-weight: bold; color: #fff; margin-bottom: 10px;">UNLOCK ALPHA</div>
+                <p style="color: #aaa; font-size: 12px; margin-bottom: 20px;">
+                    You are viewing the delayed public feed (15m delay). Pro members get real-time execution signals and API access.
+                </p>
+                <div style="font-size: 24px; color: var(--green); margin-bottom: 10px;">$20<span style="font-size: 12px; color: #aaa;">/mo</span></div>
+                <button class="buy-btn" onclick="window.location.href='mailto:access@06.ai'">REQUEST ACCESS</button>
+            </div>
+
+            <div style="color: var(--dim); margin-bottom: 10px; font-size: 10px;">SYSTEM_LOGS</div>
+            <div style="font-size: 10px; color: #555; line-height: 1.6; font-family: monospace;">
+                > Connecting to Polygon.io websocket... OK<br>
+                > Parsing SEC 13F Filings... DONE<br>
+                > Whale Alert: 500 BTC moved...<br>
+                > Re-training sentiment model... 98%
+            </div>
         </div>
     </main>
 
-    <aside class="sidebar">
-        
-        <div class="status-box">
-            <h3>SYSTEM METRICS</h3>
-            <div class="stat-row">
-                <span>UPTIME</span>
-                <span class="stat-val">99.9%</span>
-            </div>
-            <div class="stat-row">
-                <span>LOAD</span>
-                <span class="stat-val">12%</span>
-            </div>
-            <div class="stat-row">
-                <span>VISITORS</span>
-                <span class="stat-val">LIVE</span>
-            </div>
+    <footer>
+        <div class="ticker-wrap">
+            <div class="ticker-item">BTC: <span class="ticker-val">$104,230</span></div>
+            <div class="ticker-item">ETH: <span class="ticker-val">$3,200</span></div>
+            <div class="ticker-item">SOL: <span class="ticker-val">$210</span></div>
+            <div class="ticker-item">SYSTEM_STATUS: <span style="color: var(--green)">OPTIMAL</span></div>
+            <div class="ticker-item">NEXT_REBALANCE: <span class="ticker-val">04:00 UTC</span></div>
         </div>
-
-        <div class="status-box">
-            <h3>TERMINAL_LOG</h3>
-            <ul class="logs">
-                <li>Indexing logic... OK</li>
-                <li>Purging cache... OK</li>
-                <li>Pattern detected in sector 7.</li>
-                <li>Awaiting crypto-signature.</li>
-                <li>Optimizing for search latency.</li>
-            </ul>
-        </div>
-
-        <div class="status-box" style="border: none; padding: 0;">
-            <h3>ARCHIVES</h3>
-            <ul class="logs">
-                <li><a href="#" style="color: #666; text-decoration: none;">[2025.12.10] The First Hello</a></li>
-                <li><a href="#" style="color: #666; text-decoration: none;">[2025.12.01] Genesis Block</a></li>
-            </ul>
-        </div>
-
-    </aside>
-
-</div>
+    </footer>
 
 </body>
 </html>
